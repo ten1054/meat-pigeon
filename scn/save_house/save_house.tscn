@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://1o1dn3tmkv6a"]
+
+[ext_resource type="PackedScene" uid="uid://bsgtde3ctrtf8" path="res://scn/save_house/safe_house.tscn" id="1_dcmgf"]
+[ext_resource type="PackedScene" uid="uid://ctu2lcvccu0qp" path="res://scn/player/player.tscn" id="2_4tc54"]
+
+[sub_resource type="GDScript" id="GDScript_h2x8c"]
+script/source = "extends Camera2D
+
+@onready var player = $\"../Player\"
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	position = player.position
+"
+
+[node name="SaveHouse" type="Node2D"]
+
+[node name="SafeHouse" parent="." instance=ExtResource("1_dcmgf")]
+position = Vector2(-93, 210)
+
+[node name="Player" parent="." instance=ExtResource("2_4tc54")]
+position = Vector2(260, 201)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+script = SubResource("GDScript_h2x8c")

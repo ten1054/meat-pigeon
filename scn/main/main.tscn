@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsyt7jnxhmh0n"]
+
+[ext_resource type="PackedScene" uid="uid://bjeq4ye2jdy8c" path="res://scn/map/map.tscn" id="2_421nx"]
+[ext_resource type="PackedScene" uid="uid://ctu2lcvccu0qp" path="res://scn/player/player.tscn" id="3_dpiuu"]
+[ext_resource type="PackedScene" uid="uid://c3tkg3xm425rt" path="res://scn/player/state.tscn" id="4_o8cys"]
+
+[sub_resource type="GDScript" id="GDScript_pa8wq"]
+script/source = "extends Camera2D
+
+@onready var player = $\"../CharacterBody2D\"
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	position = player.position
+"
+
+[node name="Main" type="Node2D"]
+
+[node name="Map" parent="." instance=ExtResource("2_421nx")]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_dpiuu")]
+position = Vector2(625, 296)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+zoom = Vector2(2, 2)
+limit_smoothed = true
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+script = SubResource("GDScript_pa8wq")
+
+[node name="State" parent="." instance=ExtResource("4_o8cys")]

@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://c3tkg3xm425rt"]
+
+[ext_resource type="Texture2D" uid="uid://c8j3vvgi87cyd" path="res://source/img/panel-transparent-center-031.png" id="1_8qwlp"]
+[ext_resource type="Texture2D" uid="uid://capundkm12uvp" path="res://source/img/Main_Button_BG.png" id="1_p2pb5"]
+[ext_resource type="Texture2D" uid="uid://dqkwrxoa45apd" path="res://source/img/Main_Button_Overlay.png" id="2_54136"]
+[ext_resource type="Texture2D" uid="uid://cw38cmya6o2x8" path="res://source/img/Main_Button_Fill.png" id="3_vcsko"]
+[ext_resource type="Texture2D" uid="uid://dig12u1nvpr5i" path="res://source/img/rpg_icons_free/book.png" id="5_b58sh"]
+[ext_resource type="Texture2D" uid="uid://c2qfs0xlhlpj4" path="res://source/img/rpg_icons_free/iron_helmet.png" id="6_r5dg1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2xsac"]
+texture = ExtResource("1_8qwlp")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[node name="State" type="CanvasLayer"]
+
+[node name="bg" type="Node2D" parent="."]
+position = Vector2(180, -33)
+
+[node name="Panel-border-011" type="PanelContainer" parent="bg"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 292.0
+offset_top = 563.0
+offset_right = 497.0
+offset_bottom = 642.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_2xsac")
+
+[node name="healthy" type="Node2D" parent="."]
+position = Vector2(523, 571)
+scale = Vector2(0.2, 0.2)
+
+[node name="MainButtonBg" type="Sprite2D" parent="healthy"]
+texture = ExtResource("1_p2pb5")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="healthy"]
+offset_left = -104.0
+offset_top = -160.0
+offset_right = 109.0
+offset_bottom = 53.0
+scale = Vector2(0.983378, 0.986599)
+value = 50.0
+fill_mode = 3
+texture_over = ExtResource("2_54136")
+texture_progress = ExtResource("3_vcsko")
+
+[node name="Label" type="Label" parent="healthy"]
+offset_left = -50.0
+offset_top = -100.0
+offset_right = 55.0
+offset_bottom = -26.0
+theme_override_font_sizes/font_size = 80
+text = "100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="skill" type="Node2D" parent="."]
+
+[node name="Book" type="Sprite2D" parent="skill"]
+position = Vector2(588, 563)
+scale = Vector2(2, 2)
+texture = ExtResource("5_b58sh")
+
+[node name="Label" type="Label" parent="skill"]
+offset_left = 583.0
+offset_top = 579.0
+offset_right = 593.0
+offset_bottom = 598.0
+theme_override_font_sizes/font_size = 20
+text = "o
+"
+
+[node name="state" type="Node2D" parent="."]
+
+[node name="IronHelmet" type="Sprite2D" parent="state"]
+position = Vector2(634, 564)
+scale = Vector2(2, 2)
+texture = ExtResource("6_r5dg1")
+
+[node name="Label" type="Label" parent="state"]
+offset_left = 630.0
+offset_top = 580.0
+offset_right = 640.0
+offset_bottom = 599.0
+theme_override_font_sizes/font_size = 20
+text = "p
+"
+uppercase = true
