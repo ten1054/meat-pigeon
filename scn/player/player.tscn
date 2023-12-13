@@ -1,9 +1,11 @@
-[gd_scene load_steps=36 format=3 uid="uid://ctu2lcvccu0qp"]
+[gd_scene load_steps=43 format=3 uid="uid://ctu2lcvccu0qp"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_u7dxu"]
 [ext_resource type="Texture2D" uid="uid://rsgjpy0y648u" path="res://source/img/Pixel Crawler - FREE - 1.8/Heroes/Wizzard/Death/Death-Sheet.png" id="2_cugql"]
 [ext_resource type="Texture2D" uid="uid://bl5reiu5gxk5g" path="res://source/img/Pixel Crawler - FREE - 1.8/Heroes/Wizzard/Idle/Idle-Sheet.png" id="3_atcvh"]
 [ext_resource type="Texture2D" uid="uid://dvnb5fh718ajx" path="res://source/img/Pixel Crawler - FREE - 1.8/Heroes/Wizzard/Run/Run-Sheet.png" id="4_mv075"]
+[ext_resource type="Script" path="res://scn/weapon/wand.gd" id="5_o1tof"]
+[ext_resource type="Texture2D" uid="uid://cbl5m4j1osmh" path="res://source/img/Pixel Crawler - FREE - 1.8/Weapons/Wood/Wood.png" id="5_rqvo1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wrs8b"]
 
@@ -137,6 +139,21 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_5x5v7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-12, 2)]
+}
+
 [sub_resource type="Animation" id="Animation_wg0p8"]
 length = 0.75
 tracks/0/type = "value"
@@ -191,6 +208,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["idle"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../weapon:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-12, 2), Vector2(-12, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_v2ngr"]
 length = 0.6
@@ -222,6 +251,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k3ucv"]
 _data = {
+"RESET": SubResource("Animation_5x5v7"),
 "die": SubResource("Animation_wg0p8"),
 "idle": SubResource("Animation_s2ydp"),
 "run": SubResource("Animation_v2ngr")
@@ -260,24 +290,57 @@ advance_condition = &"idle"
 states/End/position = Vector2(688, 109)
 states/Start/position = Vector2(140, 87)
 states/die/node = SubResource("AnimationNodeAnimation_hd478")
-states/die/position = Vector2(393, 222)
+states/die/position = Vector2(395, 222)
 states/idle/node = SubResource("AnimationNodeAnimation_aqnuf")
 states/idle/position = Vector2(297, 87)
 states/run/node = SubResource("AnimationNodeAnimation_qy0pu")
 states/run/position = Vector2(513, 87)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_k4j8s"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_702yv"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_5uluc"), "run", "die", SubResource("AnimationNodeStateMachineTransition_e7iro"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_rnt3v")]
 
+[sub_resource type="Animation" id="Animation_xr85p"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_uw44g"]
+resource_name = "hurt"
+length = 0.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_etcqj"]
+_data = {
+"RESET": SubResource("Animation_xr85p"),
+"hurt": SubResource("Animation_uw44g")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pe38n"]
+atlas = ExtResource("5_rqvo1")
+region = Rect2(81, 3, 29, 10)
+
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 2
-motion_mode = 1
+collision_mask = 18
 script = ExtResource("1_u7dxu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wrs8b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, 0)
 sprite_frames = SubResource("SpriteFrames_bmn0t")
 animation = &"idle"
+frame = 2
+offset = Vector2(-3, 0)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath(".")
@@ -295,3 +358,21 @@ root_node = NodePath("../AnimationTree")
 libraries = {
 "": SubResource("AnimationLibrary_k3ucv")
 }
+
+[node name="player_color" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_etcqj")
+}
+
+[node name="weapon" type="Node2D" parent="."]
+position = Vector2(-12, 2)
+
+[node name="wand" type="Node2D" parent="weapon"]
+rotation = -1.5708
+script = ExtResource("5_o1tof")
+
+[node name="wand_pic" type="Sprite2D" parent="weapon/wand"]
+texture = SubResource("AtlasTexture_pe38n")
+
+[node name="Marker" type="Marker2D" parent="weapon/wand"]
+position = Vector2(12.3619, 5.40354e-07)

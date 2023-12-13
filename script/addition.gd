@@ -2,7 +2,6 @@ extends Node
 
 # 改变最大生命值
 func change_max_health(num):
-	print('增加了',num)
 	Global.player_state.max_health *= (1 + num)
 	Global.player_state.health *= (1 + num)
 
