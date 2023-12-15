@@ -1,12 +1,16 @@
-[gd_scene load_steps=51 format=3 uid="uid://cblwxr0m83s1y"]
+[gd_scene load_steps=55 format=3 uid="uid://cblwxr0m83s1y"]
 
 [ext_resource type="Texture2D" uid="uid://d4lhha5gfe1ft" path="res://source/img/Pixel Crawler - FREE - 1.8/Enemy/Skeleton Crew/Skeleton - Base/Death/Death-Sheet.png" id="1_6xkde"]
 [ext_resource type="Texture2D" uid="uid://bf2tdxlcdts1f" path="res://source/img/Pixel Crawler - FREE - 1.8/Enemy/Skeleton Crew/Skeleton - Base/Idle/Idle-Sheet.png" id="1_f4f35"]
-[ext_resource type="Script" path="res://scn/enemy/enemy.gd" id="1_rh32n"]
+[ext_resource type="Script" path="res://scn/enemy/skeleton/base/enemy.gd" id="1_uspy2"]
 [ext_resource type="PackedScene" uid="uid://cbi1mscfuohev" path="res://scn/public/enter_effect/green_enter.tscn" id="2_7n84a"]
 [ext_resource type="Texture2D" uid="uid://p5kmc7oo8vsr" path="res://source/img/Pixel Crawler - FREE - 1.8/Enemy/Skeleton Crew/Skeleton - Base/Run/Run-Sheet.png" id="2_xhe83"]
 [ext_resource type="Texture2D" uid="uid://cbl5m4j1osmh" path="res://source/img/Pixel Crawler - FREE - 1.8/Weapons/Wood/Wood.png" id="5_fkgvu"]
 [ext_resource type="Texture2D" uid="uid://ccc3bfasy477m" path="res://source/img/Pixel Crawler - FREE - 1.8/Weapons/Hands/Hands.png" id="6_nc8h6"]
+[ext_resource type="AudioStream" uid="uid://byhuvlqxdk6cy" path="res://scn/enemy/skeleton/base/hurt.wav" id="8_c56ko"]
+[ext_resource type="AudioStream" uid="uid://cyvncniiuygn3" path="res://scn/enemy/skeleton/base/die.wav" id="9_sxixt"]
+[ext_resource type="AudioStream" uid="uid://durlbvintwnrb" path="res://scn/enemy/skeleton/base/enter.wav" id="10_0c0q0"]
+[ext_resource type="AudioStream" uid="uid://ecp844cay7l3" path="res://scn/enemy/skeleton/base/attack.wav" id="10_mbeai"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tciqg"]
 radius = 6.0
@@ -258,6 +262,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["die"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("die:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_g7idc"]
 length = 1.3
@@ -298,6 +314,18 @@ tracks/2/keys = {
 "args": [],
 "method": &"enter_finish"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("cry:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_8ow8x"]
@@ -452,6 +480,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hurt:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_vx2jd"]
 length = 0.6
@@ -468,6 +508,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hurt:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0xska"]
 _data = {
@@ -479,7 +531,7 @@ _data = {
 collision_layer = 16
 collision_mask = 3
 motion_mode = 1
-script = ExtResource("1_rh32n")
+script = ExtResource("1_uspy2")
 damage = 20
 
 [node name="GreenEnter" parent="." instance=ExtResource("2_7n84a")]
@@ -492,7 +544,6 @@ shape = SubResource("CapsuleShape2D_tciqg")
 sprite_frames = SubResource("SpriteFrames_b7w2x")
 animation = &"enter"
 autoplay = "enter"
-frame = 7
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
@@ -566,6 +617,26 @@ libraries = {
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-21, -2)
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_c56ko")
+volume_db = 7.0
+max_distance = 100.0
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_sxixt")
+volume_db = 6.0
+max_distance = 500.0
+
+[node name="cry" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_0c0q0")
+autoplay = true
+max_distance = 100.0
+
+[node name="attack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_mbeai")
+volume_db = 5.943
+max_distance = 100.0
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="body_entered" from="weapons/left/Hitbox" to="." method="_on_hitbox_body_entered"]

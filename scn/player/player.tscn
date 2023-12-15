@@ -1,11 +1,11 @@
-[gd_scene load_steps=43 format=3 uid="uid://ctu2lcvccu0qp"]
+[gd_scene load_steps=44 format=3 uid="uid://ctu2lcvccu0qp"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_u7dxu"]
 [ext_resource type="Texture2D" uid="uid://rsgjpy0y648u" path="res://source/img/Pixel Crawler - FREE - 1.8/Heroes/Wizzard/Death/Death-Sheet.png" id="2_cugql"]
 [ext_resource type="Texture2D" uid="uid://bl5reiu5gxk5g" path="res://source/img/Pixel Crawler - FREE - 1.8/Heroes/Wizzard/Idle/Idle-Sheet.png" id="3_atcvh"]
 [ext_resource type="Texture2D" uid="uid://dvnb5fh718ajx" path="res://source/img/Pixel Crawler - FREE - 1.8/Heroes/Wizzard/Run/Run-Sheet.png" id="4_mv075"]
-[ext_resource type="Script" path="res://scn/weapon/wand.gd" id="5_o1tof"]
-[ext_resource type="Texture2D" uid="uid://cbl5m4j1osmh" path="res://source/img/Pixel Crawler - FREE - 1.8/Weapons/Wood/Wood.png" id="5_rqvo1"]
+[ext_resource type="PackedScene" uid="uid://b0v5wb6xu2o4i" path="res://scn/player/weapon/magic_baisc_Wand/wand.tscn" id="5_spv56"]
+[ext_resource type="AudioStream" uid="uid://c6ki7pwanapdp" path="res://scn/public/wav/hurt.wav" id="6_odjjc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wrs8b"]
 
@@ -324,9 +324,14 @@ _data = {
 "hurt": SubResource("Animation_uw44g")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pe38n"]
-atlas = ExtResource("5_rqvo1")
-region = Rect2(81, 3, 29, 10)
+[sub_resource type="Gradient" id="Gradient_chsia"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gyobr"]
+gradient = SubResource("Gradient_chsia")
+fill = 1
+fill_from = Vector2(0.517094, 0.487179)
+fill_to = Vector2(0.893162, 0.106838)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 18
@@ -367,12 +372,12 @@ libraries = {
 [node name="weapon" type="Node2D" parent="."]
 position = Vector2(-12, 2)
 
-[node name="wand" type="Node2D" parent="weapon"]
-rotation = -1.5708
-script = ExtResource("5_o1tof")
+[node name="wand" parent="weapon" instance=ExtResource("5_spv56")]
 
-[node name="wand_pic" type="Sprite2D" parent="weapon/wand"]
-texture = SubResource("AtlasTexture_pe38n")
+[node name="hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_odjjc")
+volume_db = 3.0
 
-[node name="Marker" type="Marker2D" parent="weapon/wand"]
-position = Vector2(12.3619, 5.40354e-07)
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_gyobr")
+texture_scale = 7.63

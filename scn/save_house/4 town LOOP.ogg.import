@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://qfabd4o2s63n"
+path="res://.godot/imported/4 town LOOP.ogg-6ddcad831c5606866194a2a350940a8c.oggvorbisstr"
+
+[deps]
+
+source_file="res://scn/save_house/4 town LOOP.ogg"
+dest_files=["res://.godot/imported/4 town LOOP.ogg-6ddcad831c5606866194a2a350940a8c.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

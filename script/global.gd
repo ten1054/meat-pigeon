@@ -1,6 +1,7 @@
 extends Node
 var game_difficulty = {
-	"level":1
+	"level":1,
+	"monster_num":20,
 }
 var player_state = {
 	"max_health":100,

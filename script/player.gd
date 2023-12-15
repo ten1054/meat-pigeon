@@ -41,6 +41,7 @@ func hurt(damage_type,damage_num,damage_dir):
 
 func normal_hurt(damage_num):
 	$player_color.play("hurt")
+	$hurt.play()
 	Global.player_state.invincible = true
 	Global.player_state.health -= Global.calculate_damage(damage_num) 
 	await get_tree().create_timer(0.6).timeout
@@ -53,4 +54,5 @@ func recover(delta):
 	Global.player_state.health = new_health if new_health < Global.player_state.max_health else Global.player_state.max_health
 	var new_magic = Global.player_state.magic + Global.player_state.magic_restore_value  * delta
 	Global.player_state.magic = new_magic if new_magic < Global.player_state.max_magic else Global.player_state.max_magic
+
 

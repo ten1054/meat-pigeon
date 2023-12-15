@@ -1,59 +1,28 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsyt7jnxhmh0n"]
+[gd_scene load_steps=4 format=3 uid="uid://dsyt7jnxhmh0n"]
 
-[ext_resource type="PackedScene" uid="uid://bjeq4ye2jdy8c" path="res://scn/map/map.tscn" id="2_421nx"]
-[ext_resource type="Script" path="res://scn/main/Enemy.gd" id="2_owksw"]
-[ext_resource type="PackedScene" uid="uid://ctu2lcvccu0qp" path="res://scn/player/player.tscn" id="3_dpiuu"]
+[ext_resource type="PackedScene" uid="uid://ceghq532o6dl1" path="res://scn/main/level/1/leve1.tscn" id="2_jprbh"]
 [ext_resource type="PackedScene" uid="uid://c3tkg3xm425rt" path="res://scn/player/state.tscn" id="4_o8cys"]
-
-[sub_resource type="Curve2D" id="Curve2D_tbdo1"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 22, 614, 0, 0, 0, 0, 117, 612, 0, 0, 0, 0, 117, 443, 0, 0, 0, 0, 372, 443, 0, 0, 0, 0, 369, 622, 0, 0, 0, 0, 530, 622, 0, 0, 0, 0, 530, 731, 0, 0, 0, 0, 700, 728, 0, 0, 0, 0, 701, 627, 0, 0, 0, 0, 1111, 628, 0, 0, 0, 0, 1112, 423, 0, 0, 0, 0, 1232, 423, 0, 0, 0, 0, 1235, 201, 0, 0, 0, 0, 1116, 201, 0, 0, 0, 0, 1118, 48, 0, 0, 0, 0, 734, 47, 0, 0, 0, 0, 735, -59, 0, 0, 0, 0, 509, -61, 0, 0, 0, 0, 508, 45, 0, 0, 0, 0, 24, 46, 0, 0, 0, 0, 22, 614)
-}
-point_count = 21
-
-[sub_resource type="GDScript" id="GDScript_pa8wq"]
-script/source = "extends Camera2D
-
-@onready var player = $\"../Player\"
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	position = player.position
-"
+[ext_resource type="AudioStream" uid="uid://d4cvqjpgrw41e" path="res://scn/main/14 BOSS y LOOP.ogg" id="5_gfpdv"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Map" parent="." instance=ExtResource("2_421nx")]
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -856.0
+offset_top = -621.0
+offset_right = 1979.0
+offset_bottom = 1198.0
+color = Color(0, 0, 0, 1)
+
+[node name="Leve1" parent="." instance=ExtResource("2_jprbh")]
 
 [node name="Props" type="Node2D" parent="."]
 
-[node name="Enemy" type="Node2D" parent="."]
-script = ExtResource("2_owksw")
-
-[node name="Timer" type="Timer" parent="Enemy"]
-wait_time = 10.0
-autostart = true
-
-[node name="Path2D" type="Path2D" parent="Enemy"]
-curve = SubResource("Curve2D_tbdo1")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Enemy/Path2D"]
-position = Vector2(277.095, 45.4771)
-rotation = 3.13953
-progress = 3521.04
-
-[node name="Player" parent="." instance=ExtResource("3_dpiuu")]
-position = Vector2(846, 357)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(847, 359)
-zoom = Vector2(2, 2)
-limit_smoothed = true
-position_smoothing_enabled = true
-rotation_smoothing_enabled = true
-script = SubResource("GDScript_pa8wq")
-
 [node name="State" parent="." instance=ExtResource("4_o8cys")]
 
-[connection signal="timeout" from="Enemy/Timer" to="Enemy" method="_on_timer_timeout"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("5_gfpdv")
+autoplay = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)

@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1fgfnpu5u0qw"]
+
+[ext_resource type="Script" path="res://scn/Addition/addition.gd" id="1_07oy2"]
+[ext_resource type="PackedScene" uid="uid://qkw6qhygnl1c" path="res://scn/public/entry.tscn" id="1_lplwh"]
+
+[node name="Hbox2" type="CanvasLayer"]
+script = ExtResource("1_07oy2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 264.0
+offset_top = 185.0
+offset_right = -322.0
+offset_bottom = -233.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="entry" parent="HBoxContainer" instance=ExtResource("1_lplwh")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="entry2" parent="HBoxContainer" instance=ExtResource("1_lplwh")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="entry3" parent="HBoxContainer" instance=ExtResource("1_lplwh")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20

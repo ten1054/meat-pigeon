@@ -1,0 +1,129 @@
+[gd_scene load_steps=13 format=3 uid="uid://cmoj7uv3ron4h"]
+
+[ext_resource type="Texture2D" uid="uid://daqess4eyn63" path="res://source/FXpack13/explosion/Blue Effect Bullet Impact Explosion 32x32.png" id="1_5wwyq"]
+[ext_resource type="Script" path="res://scn/public/enter_effect/location_transmission.gd" id="1_d1x6e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlkt2"]
+atlas = ExtResource("1_5wwyq")
+region = Rect2(512, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qirp"]
+atlas = ExtResource("1_5wwyq")
+region = Rect2(544, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f1gb"]
+atlas = ExtResource("1_5wwyq")
+region = Rect2(576, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_erewh"]
+atlas = ExtResource("1_5wwyq")
+region = Rect2(608, 256, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s4r61"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlkt2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qirp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f1gb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_erewh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l2f1p"]
+
+[sub_resource type="Animation" id="Animation_ik30h"]
+resource_name = "enter"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0mtdl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_56ufj"]
+resource_name = "leave"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6wdfs"]
+_data = {
+"RESET": SubResource("Animation_0mtdl"),
+"enter": SubResource("Animation_ik30h"),
+"leave": SubResource("Animation_56ufj")
+}
+
+[node name="location_transmission" type="Node2D"]
+script = ExtResource("1_d1x6e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_s4r61")
+autoplay = "default"
+frame_progress = 0.836219
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 64
+
+[node name="Label" type="Label" parent="Area2D"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -14.0
+offset_top = -41.0
+offset_right = 26.0
+offset_bottom = -26.0
+theme_override_font_sizes/font_size = 10
+text = "下一层"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(3, 3)
+shape = SubResource("CircleShape2D_l2f1p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Area2D"]
+libraries = {
+"": SubResource("AnimationLibrary_6wdfs")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

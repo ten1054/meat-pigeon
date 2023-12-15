@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0v5wb6xu2o4i"]
+
+[ext_resource type="Script" path="res://scn/player/weapon/magic_baisc_Wand/wand.gd" id="1_c5lgh"]
+[ext_resource type="Texture2D" uid="uid://cbl5m4j1osmh" path="res://source/img/Pixel Crawler - FREE - 1.8/Weapons/Wood/Wood.png" id="2_fccdy"]
+[ext_resource type="AudioStream" uid="uid://b40pmbvxulkfd" path="res://scn/public/wav/error.wav" id="3_0nor4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pe38n"]
+atlas = ExtResource("2_fccdy")
+region = Rect2(81, 3, 29, 10)
+
+[node name="wand" type="Node2D"]
+rotation = -1.5708
+script = ExtResource("1_c5lgh")
+
+[node name="wand_pic" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_pe38n")
+
+[node name="Marker" type="Marker2D" parent="."]
+position = Vector2(12.3619, 5.40354e-07)
+
+[node name="error" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_0nor4")
+volume_db = 23.028

@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 var player = null
 var is_received = false
-@onready var mp3 = preload("res://scn/public/gold/disapper.wav")
+@onready var mp3 = preload("res://scn/public/gold/Coin.wav")
 @onready var label = preload("res://scn/public/label.tscn")
 # Called when the node enters the scene tree for the first time.
 

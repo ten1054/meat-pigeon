@@ -8,7 +8,7 @@ var playe_state = {
 	"magic":100,
 	"magic_restore_value":5,
 	"invincible":false,
-	"move_speed":130,
+	"move_speed":100,
 	"attack":20,
 	"armor":60,
 	"basic_armor":20,

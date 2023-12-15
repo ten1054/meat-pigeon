@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://ceghq532o6dl1"]
+
+[ext_resource type="PackedScene" uid="uid://bjeq4ye2jdy8c" path="res://scn/map/map.tscn" id="1_x1x11"]
+[ext_resource type="Script" path="res://scn/main/level/1/level1.gd" id="2_i0asw"]
+[ext_resource type="PackedScene" uid="uid://ctu2lcvccu0qp" path="res://scn/player/player.tscn" id="3_h8w12"]
+
+[sub_resource type="GDScript" id="GDScript_mr1gh"]
+script/source = "extends Camera2D
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	position = $\"../Player\".position
+"
+
+[node name="Leve1" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("2_i0asw")
+player = NodePath("Player")
+
+[node name="Map" parent="." instance=ExtResource("1_x1x11")]
+
+[node name="Enemys" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="Enemys"]
+wait_time = 10.0
+autostart = true
+
+[node name="Player" parent="." instance=ExtResource("3_h8w12")]
+top_level = true
+position = Vector2(617, 289)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = SubResource("GDScript_mr1gh")
+
+[connection signal="timeout" from="Enemys/Timer" to="." method="_on_timer_timeout"]
